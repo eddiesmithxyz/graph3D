@@ -20,7 +20,9 @@ function main() {
 	document.getElementById("ehClose").addEventListener("click", function () { closeElementPane(); })
 	document.getElementById("vpShowEP").addEventListener("click", function () { showElementPane(); })
 
-	loadDefaultEquations();
+	if (!loadEquationsFromURL()) {
+		loadDefaultEquations();
+	}
 
 	drawEquations(gl);
 
