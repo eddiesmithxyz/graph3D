@@ -2,6 +2,8 @@ function main() {
 	let viewport = document.getElementById("viewport");
 	let canvas = document.getElementById("glCanvas");
 	let vpOverlay = document.getElementById("viewportOverlay");
+	let renderButton = document.getElementById("renderButton");
+	let autoUpdateToggle = document.getElementById("autoUpdateToggle");
 
 	canvas.width = viewport.offsetWidth;
 	canvas.height = viewport.offsetHeight;
@@ -15,10 +17,27 @@ function main() {
 	updateEPWidth();
 	EPResizerListeners();
 	//panRotButtonListeners();
-	document.getElementById("renderButton").addEventListener("click", function () { drawEquations(gl); });
+	renderButton.addEventListener("click", function () { drawEquations(gl); });
 	document.getElementById("eh-add").addEventListener("click", function () { addElement(gl); });
 	document.getElementById("ehClose").addEventListener("click", function () { closeElementPane(); })
 	document.getElementById("vpShowEP").addEventListener("click", function () { showElementPane(); })
+
+	let autoUpdateEnabled = autoUpdateToggle.checked;
+	function syncAutoUpdateUI() {
+		renderButton.disabled = autoUpdateEnabled;
+	}
+	window.onEquationInputChanged = function (textbox) {
+		if (!autoUpdateEnabled)
+			return;
+
+		if (getFragShaderFromEq(textbox.value) !== false)
+			drawEquations(gl);
+	};
+	autoUpdateToggle.addEventListener("change", function () {
+		autoUpdateEnabled = autoUpdateToggle.checked;
+		syncAutoUpdateUI();
+	});
+	syncAutoUpdateUI();
 
 	if (!loadEquationsFromURL()) {
 		loadDefaultEquations();

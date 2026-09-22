@@ -32,6 +32,29 @@
     /* background-color: #99CDFF; */
 }
 
+#renderButton:disabled {
+    opacity: 0.55;
+    cursor: default;
+}
+
+#autoUpdateContainer {
+    position: absolute;
+    --marginWidth: 10px;
+    bottom: 52px;
+    margin: var(--marginWidth);
+    width: calc(var(--ePWidth) - 2*var(--marginWidth));
+    z-index: 100;
+}
+
+#autoUpdateLabel {
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.95em;
+    color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
 .element-input {
     width: 90%;
     padding: 0px 15px;
@@ -55,7 +78,7 @@
 
 
 .element-delete {
-	font-size: var(--eDelButtonSize) !important;
+    font-size: var(--eDelButtonSize) !important;
 }
 
 /* .element {
@@ -64,18 +87,18 @@
 
 .el-warning {
     background-color: rgba(0, 0, 0, 0) !important;
-    color:hsla(0, 0%, 20%, 0.7);
+    color: hsla(0, 0%, 20%, 0.7);
     font-size: 27px !important;
 }
 
 
-.el-icon {    
+.el-icon {
     width: 27px;
     height: 27px;
     cursor: pointer;
     border-radius: 15px;
     border: 1px solid rgba(0, 0, 0, 0.3);
-    background-color: rgba(0, 0, 0, 1);     
+    background-color: rgba(0, 0, 0, 1);
 }
 
 .el-icon-container {
@@ -127,7 +150,7 @@
 }
 
 .eh-buttons:hover {
-    background-color: rgba(0,0,0,0.1);
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 
@@ -144,7 +167,7 @@
 }
 
 #elementPane {
-    
+
     z-index: 50;
 
     position: fixed;
