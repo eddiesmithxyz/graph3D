@@ -1,4 +1,6 @@
-function main() {
+async function main() {
+	await customElements.whenDefined("math-field");
+
 	let viewport = document.getElementById("viewport");
 	let canvas = document.getElementById("glCanvas");
 	let vpOverlay = document.getElementById("viewportOverlay");
@@ -18,7 +20,7 @@ function main() {
 	EPResizerListeners();
 	//panRotButtonListeners();
 	renderButton.addEventListener("click", function () { drawEquations(gl); });
-	document.getElementById("eh-add").addEventListener("click", function () { addElement(gl); });
+	document.getElementById("eh-add").addEventListener("click", function () { addElement(); });
 	document.getElementById("ehClose").addEventListener("click", function () { closeElementPane(); })
 	document.getElementById("vpShowEP").addEventListener("click", function () { showElementPane(); })
 
@@ -30,7 +32,7 @@ function main() {
 		if (!autoUpdateEnabled)
 			return;
 
-		if (getFragShaderFromEq(textbox.value) !== false)
+		if (getFragShaderFromEq(getEquationSource(textbox)) !== false)
 			drawEquations(gl);
 	};
 	autoUpdateToggle.addEventListener("change", function () {

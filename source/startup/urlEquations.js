@@ -22,14 +22,7 @@ function loadEquationsFromURL() {
     }
 
     for (let i = 0; i < eqs.length; i++) {
-        addElement();
-        document.getElementById("elementInput" + i.toString()).value = eqs[i];
-
-        if (hiddenIndices.has(i)) {
-            let row = document.getElementById("element" + i.toString());
-            let rowIcon = row.querySelector(".el-icon");
-            hideElement({ target: rowIcon });
-        }
+        addElement(eqs[i], hiddenIndices.has(i));
     }
 
     return true;

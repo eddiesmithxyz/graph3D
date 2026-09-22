@@ -1,41 +1,24 @@
 const startEqs = [
-    "xyz=cosx",
-    "1=max(|xy|, max(|xz|, |yz|))",
-    "yz=x(y-z)",
+    "$$ 3y^3=xz\\cos\\left(xyz+t\\right) $$", //"3y^3=xzcos(xyz+t)",
+    `$$ 1=\\max\\left(\\left|xy\\right|,\\max\\left(\\left|xz\\right|,\\left|yz\\right|\\right)\\right) $$`, //"1=max(|xy|, max(|xz|, |yz|))",
+    "yz=x\\left(y-z\\left)",
     "zy=5cos(xy+z)",
     "(2x^2-y^2)(2y^2-z^2)(2z^2-x^2)=(x^2+y^2+z^2-1)^2",
-    "3y^3=xzcos(xyz+t)",
+    "$$ 4\\left(\\phi^2x^2-y^2\\right)\\left(\\phi^2y^2-z^2\\right)\\left(\\phi^2z^2-x^2\\right)=\\left(1+2\\phi\\right)\\left(x^2+y^2+z^2-1\\right)^2 $$",
     "cos(x^2+y^2+z^2)=0.5",
     "4(\u03C6^2*x^2-y^2)(\u03C6^2*y^2-z^2)(\u03C6^2*z^2-x^2)=(1+2*\u03C6)(x^2+y^2+z^2-1)^2",
 ];
 
 function loadDefaultEquations() {
-    addElement();
-    document.getElementById("elementInput0").value = startEqs[5];
-
-    // i didn't write element hiding to be triggered programmatically. currently bodging this for a better demo
-    addElement();
-    let row = document.getElementById("elementInput1");
-    row.value = "y=x^2-z^2";
-    let rowIcon = row.parentElement.parentElement.querySelector(".el-icon");
-    hideElement({ target: rowIcon });
-
-    addElement();
-    row = document.getElementById("elementInput2");
-    row.value = startEqs[1];
-    rowIcon = row.parentElement.parentElement.querySelector(".el-icon");
-    hideElement({ target: rowIcon });
-
-    addElement();
-    row = document.getElementById("elementInput3");
-    row.value = startEqs[4];
-    rowIcon = row.parentElement.parentElement.querySelector(".el-icon");
-    hideElement({ target: rowIcon });
+    addElement(startEqs[0]);
+    addElement("y=x^2-z^2", true);
+    addElement(startEqs[1], true);
+    addElement(startEqs[5], true);
 
 
 
     //const barthSextic = "4(1.61803^2*x^2-y^2)(1.61803^2*y^2-z^2)(1.61803^2*z^2-x^2)-(1+2*1.61803)(x^2+y^2+z^2-1)^2=0";
-    //const batchSextic = "4(φ^2*x^2-y^2)(φ^2*y^2-z^2)(φ^2*z^2-x^2)=(1+2*φ)(x^2+y^2+z^2-1)^2";
+    //const batchSextic = "4(\\phi^2*x^2-y^2)(\\phi^2*y^2-z^2)(\\phi^2*z^2-x^2)=(1+2*\\phi)(x^2+y^2+z^2-1)^2";
 
 
 

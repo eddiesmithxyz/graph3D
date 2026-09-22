@@ -56,8 +56,9 @@
 }
 
 .element-input {
-    width: 90%;
-    padding: 0px 15px;
+    width: 100%;
+    min-width: 0;
+    padding: 0px 10px;
     line-height: var(--eDefaultHeight);
     box-sizing: border-box;
     border: none;
@@ -120,8 +121,9 @@
 .element-row {
     height: var(--eDefaultHeight);
     display: grid;
-    grid-template-columns: 40px auto var(--eDelButtonSize);
+    grid-template-columns: 40px minmax(0, 1fr) var(--eDelButtonSize);
     border-bottom: var(--boxBorder);
+    overflow: hidden;
 }
 
 .element-label {
@@ -132,6 +134,16 @@
 #elementList {
     display: grid;
     grid-template-columns: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: calc(100vh - var(--ehHeight));
+    padding-bottom: 110px;
+    box-sizing: border-box;
+}
+
+.element {
+    min-width: 0;
+    overflow: hidden;
 }
 
 .eh-center {
@@ -191,4 +203,21 @@
     display: grid;
     grid-template-columns: auto auto auto;
     align-items: center;
+}
+
+.maths-input {
+    border: none;
+    font-size: 1.1em;
+}
+
+.maths-input::part(menu-toggle) {
+    display: none;
+}
+
+.maths-input::part(virtual-keyboard-toggle) {
+    display: none;
+}
+
+.maths-input:focus-within {
+    outline: none;
 }
