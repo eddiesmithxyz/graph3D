@@ -14,21 +14,21 @@ function checkMismatchedBrackets(tokens) {
 
 function getFragShaderFromEq(eqSrc) {
     let eqExpression = BAD_EQUATION; // eqExpression is left hand side minus right hand side
-    
+
     // if there is exactly one equals sign in eqSrc
     if ((eqSrc.match(/=/g) || []).length == 1) {
         let LHS = eqSrc.substring(0, eqSrc.indexOf("="));
         let RHS = eqSrc.substring(eqSrc.indexOf("=") + 1);
-        if (LHS.length != 0 && RHS.length != 0) 
+        if (LHS.length != 0 && RHS.length != 0)
             eqExpression = "(" + LHS + ") - (" + RHS + ")";
     }
-    
+
 
     // each stage in the pipeline is conditional on all the prev stages succeeding
     // otherwise the stage will evaluate to BAD_EQUATION
-    
+
     let tokensInfix = BAD_EQUATION;
-    if (eqExpression != BAD_EQUATION) 
+    if (eqExpression != BAD_EQUATION)
         tokensInfix = strToInfixTokens(eqExpression);
     if (tokensInfix.length == 0)
         tokensInfix = BAD_EQUATION;
@@ -38,8 +38,8 @@ function getFragShaderFromEq(eqSrc) {
         tokensInfix = BAD_EQUATION;
 
 
-    let tokensInfixExplicit = BAD_EQUATION; 
-    if (tokensInfix != BAD_EQUATION) 
+    let tokensInfixExplicit = BAD_EQUATION;
+    if (tokensInfix != BAD_EQUATION)
         tokensInfixExplicit = handleImplications(tokensInfix);
 
 
@@ -49,7 +49,7 @@ function getFragShaderFromEq(eqSrc) {
     }
 
     //console.log(tokensPostfix);
-    
+
     let glslCode = BAD_EQUATION;
     if (tokensPostfix != BAD_EQUATION) {
         glslCode = postfixToGLSL(tokensPostfix);
@@ -67,26 +67,31 @@ function getFragShaderFromEq(eqSrc) {
 }
 
 let surfacePrograms = [];
+function getEquationSource(elementInput) {
+    return elementInput.getValue("ascii-math");
+}
+
 function drawEquations(gl) {
     surfacePrograms = [];
 
     let elements = document.getElementsByClassName("element-row");
     for (let i = 0; i < elements.length; i++) {
-        let eqSrc = elements[i].getElementsByClassName("element-input")[0].value;
+        let elementInput = elements[i].getElementsByClassName("element-input")[0];
+        let eqSrc = getEquationSource(elementInput);
         let fs = getFragShaderFromEq(eqSrc);
 
         let r = convertLiteralConst(elements[i].getAttribute("data-r"));
         let g = convertLiteralConst(elements[i].getAttribute("data-g"));
         let b = convertLiteralConst(elements[i].getAttribute("data-b"));
         let colStr = "#define SURFACE_COL vec3(" + r + "," + g + "," + b + ")";
-        
+
         function setGoodEqStyle(eqIndex) {
-            elements[eqIndex].getElementsByClassName("el-warning")[0].style.display = "none";            
-            elements[eqIndex].getElementsByClassName("el-icon")[0].style.display = "block";            
+            elements[eqIndex].getElementsByClassName("el-warning")[0].style.display = "none";
+            elements[eqIndex].getElementsByClassName("el-icon")[0].style.display = "block";
         }
         function setBadEqStyle(eqIndex) {
-            elements[eqIndex].getElementsByClassName("el-warning")[0].style.display = "block";            
-            elements[eqIndex].getElementsByClassName("el-icon")[0].style.display = "none";         
+            elements[eqIndex].getElementsByClassName("el-warning")[0].style.display = "block";
+            elements[eqIndex].getElementsByClassName("el-icon")[0].style.display = "none";
         }
 
         if (fs !== false) {

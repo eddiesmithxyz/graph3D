@@ -6,7 +6,7 @@ function panCamera(mouse) {
 	//let pan = Vec2.ScalarMul(zoom, mouse);
 	//pan = Vec2.Mul(pan, new Vec2(horizontalMouseSpeed, verticalMouseSpeed));
 
-	let pan = Vec2.Mul(mouse, new Vec2(horizontalMouseSpeed, verticalMouseSpeed));
+	let pan = Vec2.Mul(mouse, new Vec2(-horizontalMouseSpeed, -verticalMouseSpeed));
 
 	graphOriginOffset = Vec3.Add(graphOriginOffset, Vec3.ScalarMul(-pan.x, horizontalPan));
 	graphOriginOffset = Vec3.Add(graphOriginOffset, Vec3.ScalarMul(-pan.y, verticalPan));

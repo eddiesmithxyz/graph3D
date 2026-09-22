@@ -1,8 +1,9 @@
 function resizeGLCanvas() {
     let canvas = document.getElementById("glCanvas");
     let gl = canvas.getContext("webgl2");
-    gl.canvas.width = canvas.clientWidth;
-    gl.canvas.height = canvas.clientHeight;
+    let dpr = window.devicePixelRatio || 1;
+    gl.canvas.width = canvas.clientWidth * dpr;
+    gl.canvas.height = canvas.clientHeight * dpr;
 }
 
 let oldWindowWidth = 0;

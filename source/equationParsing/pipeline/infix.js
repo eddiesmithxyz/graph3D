@@ -18,15 +18,15 @@ function strToInfixTokens(eq) {
         //  and presumably keeps track of which bar corresponds to which other bar
         // (or inserts some hidden brackets), but i didn't have time to impliment something like this (yet)
 
-        
+
         let j = 0;
         while (j < str.length && str.charAt(j) != "|")
             j++;
-        
+
         if (str.charAt(j) == "|") {
             str = str.substring(0, j) + "abs(" + str.substring(j + 1);
             j += 4; // go past the "abs("
-            
+
             let bracketLevel = 0;
             while (j < str.length && (str.charAt(j) != "|" || bracketLevel != 0)) {
                 if (str.charAt(j) == "(")
@@ -55,9 +55,8 @@ function strToInfixTokens(eq) {
     if (eq.includes(functionFlag) || eq.includes(piFlag))
         badEq = true;
     eq = eq.replaceAll(piStr, piFlag);
-    console.log(eq);
     eq = eq.replaceAll(phiStr, phiFlag);
-    console.log(eq);
+    eq = eq.replaceAll("phi", phiFlag);
 
     for (let f = 0; f < eqFunctions.length; f++) {
         let pattern = new RegExp(eqFunctions[f].str, "g");
@@ -69,7 +68,7 @@ function strToInfixTokens(eq) {
     let eqTokens = [];
     // iterate over every character in the string
     // find the appropriate token type and append the new token to the list of tokens
-    while(i < eq.length && !badEq) {
+    while (i < eq.length && !badEq) {
         let tokenText = eq.charAt(i).toString();
         i++;
 
@@ -82,7 +81,7 @@ function strToInfixTokens(eq) {
 
             // literal constants can be more than one character long 
             // iterate until the end of the literal is found
-            while (i < eq.length && 
+            while (i < eq.length &&
                 (
                     geteqTokenType(eq.charAt(i)) == LITERAL_CONSTANT ||
                     geteqTokenType(eq.charAt(i)) == DOT
@@ -95,7 +94,7 @@ function strToInfixTokens(eq) {
         else if (tokenType == FUNCTION) {
             tokenText = "";
             // find next instance of the function flag (which indicates the end of this function string)
-            while (i < eq.length && 
+            while (i < eq.length &&
                 eq.charAt(i).toString() != functionFlag
             ) {
                 tokenText = tokenText.concat(eq.charAt(i).toString());
